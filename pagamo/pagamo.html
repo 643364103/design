@@ -1,0 +1,105 @@
+<!-- 插件官网地址：http://ruby-china.org/topics/17028 -->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>design</title>
+        <link rel="stylesheet" type="text/css" href="../template/markdownToc_files/github2-rightpart.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../template/markdownToc_files/github1-contents.css">
+        <link rel="stylesheet" href="../template/markdownToc_files/zTreeStyle.css" type="text/css">
+        <style>
+            .ztree li a.curSelectedNode {
+                padding-top: 0px;
+                background-color: #FFE6B0;
+                color: black;
+                height: 16px;
+                border: 1px #FFB951 solid;
+                opacity: 0.8;
+            }
+            .ztree{
+                overflow: auto;
+                height:100%;
+                min-height: 200px;
+                top: 0px;
+            }
+        </style>
+    </head>
+    <body>
+     <div>
+            <div style="width:30%;">
+                <ul id="tree" class="ztree" style="width: 260px; overflow: auto; position: fixed; z-index: 2147483647; border: 0px none; left: 0px; bottom: 0px;">
+                <!-- 目录内容在网页另存为之后将插入到此处 -->
+                </ul>
+            </div>
+            <div id="readme" style="width:70%;margin-left:25%;">
+                <article class="markdown-body">
+    <h1 id="pagamo"><a name="user-content-pagamo" href="#pagamo" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>PaGamO 技术沟通</h1>
+<h2 id="overall"><a name="user-content-overall" href="#overall" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>overall</h2>
+<p><strong> <font color="#FF0000">以下所有的API相关只是示意，具体的等确定方案后完成</font></strong></p>
+<ul>
+<li>页面地址 <a href="https://pagamo.101.com/player/index.html?token=&amp;qid=">https://pagamo.101.com/player/index.html?token=&amp;qid=</a>这里是习题的GUID</li>
+<li>下图中白色区域为qtiPlayer完成<br />
+<img alt="alt text" src="///D://101PAD/design/pagamo/images/1.jpg" title="" /></li>
+</ul>
+<h2 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>前端作答交互时序图</h2>
+<p><img alt="alt text" src="///D://101PAD/design/pagamo/images/2.jpg" title="" /></p>
+<h2 id="_2"><a name="user-content-_2" href="#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>方案一</h2>
+<p>主要技术：iframe + winodw.postMessage  (IE8以上) ，更好的跨平台</p>
+<h2 id="_3"><a name="user-content-_3" href="#_3" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>方案二</h2>
+<p>主要技术：Bridge,也可跨平台，但是需要PaGamO去实现三个平台的Bridge。 用户体验会好一点</p>
+<h2 id="api"><a name="user-content-api" href="#api" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>前端交互业务场景API</h2>
+<h3 id="qtiplayer-pagamo"><a name="user-content-qtiplayer-pagamo" href="#qtiplayer-pagamo" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>qtiPlayer 加载回调通知PaGamO，同时把选项的个数丢过去</h3>
+<blockquote>
+<p>qtiPlayer----&gt;PaGamO<br />
+<pre><code class="javascript">{'type':'loaded','data':{}}
+</code></pre></p>
+</blockquote>
+<h3 id="pagamo-qtiplayer"><a name="user-content-pagamo-qtiplayer" href="#pagamo-qtiplayer" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>PaGamO 送出答案命令至 qtiPlayer</h3>
+<blockquote>
+<p>PaGamO----&gt;qtiPlayer<br />
+<pre><code class="javascript">{'type':'confirmAnswer'};
+</code></pre></p>
+</blockquote>
+<h3 id="qtiplayer-pagamo_1"><a name="user-content-qtiplayer-pagamo_1" href="#qtiplayer-pagamo_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>qtiPlayer 送出答题情况 至 PaGamO</h3>
+<blockquote>
+<p>qtiPlayer----&gt;PaGamO<br />
+<pre><code class="javascript">{'type':'Answer','data':{}};
+</code></pre></p>
+</blockquote>
+<h3 id="pagamo-qtiplayer_1"><a name="user-content-pagamo-qtiplayer_1" href="#pagamo-qtiplayer_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>PaGamO 题目解析命令至 qtiPlayer</h3>
+<blockquote>
+<p>PaGamO----&gt;qtiPlayer<br />
+<pre><code class="javascript">{'type':'showHint','data':{}};
+</code></pre></p>
+</blockquote>
+<h3 id="pagamo-qtiplayer_2"><a name="user-content-pagamo-qtiplayer_2" href="#pagamo-qtiplayer_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>PaGamO 时间计时结束至 qtiPlayer</h3>
+<blockquote>
+<p>PaGamO----&gt;qtiPlayer<br />
+<pre><code class="javascript">{'type':'timeout','data':{}};
+</code></pre></p>
+</blockquote>
+<h2 id="_4"><a name="user-content-_4" href="#_4" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>后端</h2>
+<h3 id="http-get"><a name="user-content-http-get" href="#http-get" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>获取用户作答情况 http get</h3>
+<blockquote>
+<p>PaGamO  API地址：<a href="https://pagamo.101.com/history">https://pagamo.101.com/history</a></p>
+</blockquote>
+<h3 id="http-post"><a name="user-content-http-post" href="#http-post" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>存储用户作答情况 http Post</h3>
+<blockquote>
+<p>qtiPlayer API地址：<a href="https://pagamo.101.com/post">https://pagamo.101.com/post</a></p>
+</blockquote>    
+                </article>
+            </div>
+        </div>
+    <script src="../template/markdownToc_files/jquery-1.10.2.min.js"></script>
+    <script src="../template/markdownToc_files/jquery.ztree.all-3.5.min.js"></script>
+    <script src="../template/markdownToc_files/jquery.ztree_toc.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#tree').ztree_toc({
+                is_auto_number:false,
+                documment_selector:'.markdown-body',
+                is_expand_all: true
+            });
+        });
+    </script>
+    </body>
+</html>

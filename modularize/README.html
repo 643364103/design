@@ -1,0 +1,419 @@
+<!-- 插件官网地址：http://ruby-china.org/topics/17028 -->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>design</title>
+        <link rel="stylesheet" type="text/css" href="../template/markdownToc_files/github2-rightpart.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../template/markdownToc_files/github1-contents.css">
+        <link rel="stylesheet" href="../template/markdownToc_files/zTreeStyle.css" type="text/css">
+        <style>
+            .ztree li a.curSelectedNode {
+                padding-top: 0px;
+                background-color: #FFE6B0;
+                color: black;
+                height: 16px;
+                border: 1px #FFB951 solid;
+                opacity: 0.8;
+            }
+            .ztree{
+                overflow: auto;
+                height:100%;
+                min-height: 200px;
+                top: 0px;
+            }
+            .leftnav{
+                position: fixed;
+                top: 50%;
+                left: 16%;
+                cursor:pointer;
+            }
+        </style>
+    </head>
+    <body>
+     <div>
+            <div style="width:30%;">
+                <ul id="tree" class="ztree" style="width: 260px; overflow: auto; position: fixed; z-index: 2147483647; border: 0px none; left: 0px; bottom: 0px;">
+                <!-- 目录内容在网页另存为之后将插入到此处 -->
+                </ul>
+                <div class="leftnav arrow arrow-left"></div>
+            </div>
+            <div id="readme" style="width:70%;margin-left:18%;">
+                <article class="markdown-body">
+    <h1 id="web"><a name="user-content-web" href="#web" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Web前端</h1>
+<h1 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>技术树</h1>
+<blockquote>
+<p><img alt="alt text" src="///D://101PAD/design/modularize/images/1.png" title="" /><br />
+  checklist <a href="http://git.sdp.nd/fed/checklist">http://git.sdp.nd/fed/checklist</a></p>
+</blockquote>
+<h1 id="js"><a name="user-content-js" href="#js" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>JS模块化的演进</h1>
+<p>模块系统主要解决模块的定义、依赖和导出，先来看看已经存在的模块系统。</p>
+<h2 id="script"><a name="user-content-script" href="#script" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>&lt;script&gt;标签</h2>
+<pre><code class="javascript">&lt;script src=&quot;module1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;module2.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+
+<p>这是最原始的 JavaScript 文件加载方式，如果把每一个文件看做是一个模块，那么他们的接口通常是暴露在全局作用域下，也就是定义在 window 对象中，不同模块的接口调用都是一个作用域中，一些复杂的框架，会使用命名空间的概念来组织这些模块的接口，典型的例子如 YUI 库。</p>
+<blockquote>
+<p>这种原始的加载方式暴露了一些显而易见的弊端：</p>
+</blockquote>
+<ol>
+<li>全局作用域下容易造成变量冲突</li>
+<li>文件只能按照 &lt;script&gt; 的书写顺序进行加载</li>
+<li>开发人员必须主观解决模块和代码库的依赖关系</li>
+<li>在大型项目中各种资源难以管理，长期积累的问题导致代码库混乱不堪</li>
+</ol>
+<h2 id="commonjs"><a name="user-content-commonjs" href="#commonjs" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>CommonJS</h2>
+<p><a href="http://wiki.commonjs.org/wiki/CommonJS">http://wiki.commonjs.org/wiki/CommonJS</a></p>
+<p>服务器端的 Node.js 遵循 CommonJS规范，该规范的核心思想是允许模块通过 require 方法来同步加载所要依赖的其他模块，然后通过 exports 或 module.exports 来导出需要暴露的接口。<br />
+<pre><code class="js">require(&quot;module&quot;);
+require(&quot;../file.js&quot;);
+exports.doStuff = function() {};
+module.exports = someValue;
+</code></pre></p>
+<h3 id="_2"><a name="user-content-_2" href="#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>优点</h3>
+<ol>
+<li>
+<p>服务器端模块便于重用</p>
+</li>
+<li>
+<p>NPM 中已经有将近20万个可以使用模块包</p>
+</li>
+<li>
+<p>简单并容易使用</p>
+</li>
+</ol>
+<h3 id="_3"><a name="user-content-_3" href="#_3" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>缺点：</h3>
+<ol>
+<li>
+<p>同步的模块加载方式不适合在浏览器环境中，同步意味着阻塞加载，浏览器资源是异步加载的</p>
+</li>
+<li>
+<p>不能非阻塞的并行加载多个模块</p>
+</li>
+</ol>
+<h3 id="_4"><a name="user-content-_4" href="#_4" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>实现：</h3>
+<ol>
+<li>
+<p>服务器端的 Node.js</p>
+</li>
+<li>
+<p>Browserify，浏览器端的 CommonJS 实现，可以使用 NPM 的模块，但是编译打包后的文件体积可能很大</p>
+</li>
+<li>
+<p>modules-webmake，类似Browserify，还不如 Browserify 灵活</p>
+</li>
+<li>
+<p>wreq，Browserify 的前身</p>
+</li>
+</ol>
+<h2 id="amd"><a name="user-content-amd" href="#amd" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>AMD</h2>
+<p><a href="https://github.com/amdjs/amdjs-api">https://github.com/amdjs/amdjs-api</a><br />
+Asynchronous Module Definition 规范其实只有一个主要接口 define(id?, dependencies?, factory)，它要在声明模块的时候指定所有的依赖 dependencies，并且还要当做形参传到 factory 中，对于依赖的模块提前执行，依赖前置。</p>
+<pre><code class="js">define(&quot;module&quot;, [&quot;dep1&quot;, &quot;dep2&quot;], function(d1, d2) {
+  return someExportedValue;
+});
+require([&quot;module&quot;, &quot;../file&quot;], function(module, file) { /* ... */ });
+</code></pre>
+
+<h3 id="_5"><a name="user-content-_5" href="#_5" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>优点：</h3>
+<ol>
+<li>
+<p>适合在浏览器环境中异步加载模块</p>
+</li>
+<li>
+<p>可以并行加载多个模块</p>
+</li>
+</ol>
+<h3 id="_6"><a name="user-content-_6" href="#_6" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>缺点：</h3>
+<ol>
+<li>
+<p>提高了开发成本，代码的阅读和书写比较困难，模块定义方式的语义不顺畅</p>
+</li>
+<li>
+<p>不符合通用的模块化思维方式，是一种妥协的实现</p>
+</li>
+</ol>
+<h3 id="_7"><a name="user-content-_7" href="#_7" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>实现：</h3>
+<ol>
+<li>RequireJS</li>
+<li>curl</li>
+</ol>
+<h2 id="cmd"><a name="user-content-cmd" href="#cmd" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>CMD</h2>
+<p><a href="https://github.com/cmdjs/specification/blob/master/draft/module.md">https://github.com/cmdjs/specification/blob/master/draft/module.md</a><br />
+Common Module Definition 规范和 AMD 很相似，尽量保持简单，并与 CommonJS 和 Node.js 的 Modules 规范保持了很大的兼容性。<br />
+<pre><code class="js">define(function(require, exports, module) {
+  var $ = require('jquery');
+  var Spinning = require('./spinning');
+  exports.doSomething = ...
+  module.exports = ...
+})
+</code></pre></p>
+<h3 id="_8"><a name="user-content-_8" href="#_8" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>优点：</h3>
+<ol>
+<li>依赖就近，延迟执行</li>
+<li>可以很容易在 Node.js 中运行</li>
+</ol>
+<h3 id="_9"><a name="user-content-_9" href="#_9" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>缺点：</h3>
+<ol>
+<li>依赖 SPM 打包，模块的加载逻辑偏重</li>
+</ol>
+<h3 id="_10"><a name="user-content-_10" href="#_10" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>实现：</h3>
+<ol>
+<li>Sea.js</li>
+<li>coolie</li>
+</ol>
+<h2 id="umd"><a name="user-content-umd" href="#umd" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>UMD</h2>
+<p><a href="https://github.com/umdjs/umd">https://github.com/umdjs/umd</a><br />
+Universal Module Definition 规范类似于兼容 CommonJS 和 AMD 的语法糖，是模块定义的跨平台解决方案。</p>
+<h2 id="es6"><a name="user-content-es6" href="#es6" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>ES6 模块</h2>
+<p>入门 <a href="http://es6.ruanyifeng.com/">http://es6.ruanyifeng.com/</a><br />
+EcmaScript6 标准增加了 JavaScript 语言层面的模块体系定义。ES6 模块的设计思想，是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。<br />
+<pre><code class="js">import &quot;jquery&quot;;
+export function doStuff() {}
+module &quot;localModule&quot; {}
+</code></pre></p>
+<h3 id="_11"><a name="user-content-_11" href="#_11" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>优点：</h3>
+<ol>
+<li>容易进行静态分析</li>
+<li>面向未来的 EcmaScript 标准</li>
+</ol>
+<h3 id="_12"><a name="user-content-_12" href="#_12" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>缺点：</h3>
+<ol>
+<li>原生浏览器端还没有实现该标准</li>
+<li>全新的命令字，新版的 Node.js才支持</li>
+</ol>
+<h3 id="_13"><a name="user-content-_13" href="#_13" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>实现：</h3>
+<ol>
+<li>Babel</li>
+</ol>
+<h2 id="_14"><a name="user-content-_14" href="#_14" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>期望的模块系统</h2>
+<p>可以兼容多种模块风格，尽量可以利用已有的代码，不仅仅只是 JavaScript 模块化，还有 CSS、图片、字体等资源也需要模块化。</p>
+<h2 id="_15"><a name="user-content-_15" href="#_15" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>前端模块加载</h2>
+<p>前端模块要在客户端中执行，所以他们需要增量加载到浏览器中。</p>
+<p>模块的加载和传输，我们首先能想到两种极端的方式，一种是每个模块文件都单独请求，另一种是把所有模块打包成一个文件然后只请求一次。显而易见，每个模块都发起单独的请求造成了请求次数过多，导致应用启动速度慢；一次请求加载所有模块导致流量浪费、初始化过程慢。这两种方式都不是好的解决方案，它们过于简单粗暴。</p>
+<p>分块传输，按需进行懒加载，在实际用到某些模块的时候再增量更新，才是较为合理的模块加载方案。</p>
+<p>要实现模块的按需加载，就需要一个对整个代码库中的模块进行静态分析、编译打包的过程。</p>
+<h2 id="_16"><a name="user-content-_16" href="#_16" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>所有资源都是模块</h2>
+<p>在上面的分析过程中，我们提到的模块仅仅是指JavaScript模块文件。然而，在前端开发过程中还涉及到样式、图片、字体、HTML 模板等等众多的资源。这些资源还会以各种方言的形式存在，比如 coffeescript、 less、 sass、众多的模板库、多语言系统（i18n）等等。</p>
+<p>如果他们都可以视作模块，并且都可以通过require的方式来加载，将带来优雅的开发体验，比如：<br />
+<pre><code class="js">require(&quot;./style.css&quot;);
+require(&quot;./style.less&quot;);
+require(&quot;./template.jade&quot;);
+require(&quot;./image.png&quot;);
+</code></pre><br />
+那么如何做到让 require 能加载各种资源呢？</p>
+<h2 id="_17"><a name="user-content-_17" href="#_17" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>静态分析</h2>
+<p>在编译的时候，要对整个代码进行静态分析，分析出各个模块的类型和它们依赖关系，然后将不同类型的模块提交给适配的加载器来处理。比如一个用 LESS 写的样式模块，可以先用 LESS 加载器将它转成一个CSS 模块，在通过 CSS 模块把他插入到页面的 &lt;style&gt; 标签中执行。Webpack 就是在这样的需求中应运而生。</p>
+<p>同时，为了能利用已经存在的各种框架、库和已经写好的文件，我们还需要一个模块加载的兼容策略，来避免重写所有的模块。</p>
+<h1 id="css"><a name="user-content-css" href="#css" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>css模块化</h1>
+<p>用面向对象的三大特性来说明CSS模块化——封装、继承、多态</p>
+<h2 id="_18"><a name="user-content-_18" href="#_18" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>封装</h2>
+<p><img alt="alt text" src="///D://101PAD/design/modularize/images/4.jpg" title="" /><br />
+封装是实现CSS模块化的最基本要求，封装成的各个单元就是基本的CSS模块，可灵活用于组建页面的各种显示样式。<br />
+HTML代码<br />
+<pre><code class="html">&lt;div class=”module-a”&gt;
+
+  &lt;h3&gt;标题1&lt;/h3&gt;
+
+  &lt;p&gt;描述文字&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div class=”module-b”&gt;
+
+  &lt;h3&gt;标题2&lt;/h3&gt;
+
+  &lt;ul&gt;
+
+    &lt;li&gt;列表&lt;/li&gt;
+
+    &lt;li&gt;列表&lt;/li&gt;
+
+    &lt;li&gt;列表&lt;/li&gt;
+
+  &lt;/ul&gt;
+
+&lt;/div&gt;
+</code></pre><br />
+CSS代码<br />
+<pre><code class="css">.module-a{.....}
+
+.module-a h3{.....}
+
+.module-a p{.....}
+
+.module-b{.....}
+
+.module-b h3{.....}
+
+.module-b ul{.....}
+
+.module-b ul li{.....}
+
+.module-b ul li{.....}
+
+.module-b ul li{.....}
+</code></pre></p>
+<h2 id="_19"><a name="user-content-_19" href="#_19" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>继承</h2>
+<p><img alt="alt text" src="///D://101PAD/design/modularize/images/5.jpg" title="" /><br />
+继承可谓是CSS模块化的关键所在<br />
+HTML代码<br />
+<pre><code class="html">&lt;div class=” module module-A module-A-a”&gt;&lt;/div&gt;
+
+&lt;div class=” module module-A module-A-b”&gt;&lt;/div&gt;
+</code></pre><br />
+CSS代码<br />
+<pre><code class="css">.module {.....}
+
+    .module-A {.....}
+
+        .module-A-a {.....}
+
+        .module-A-b {.....}
+
+    .module-B {.....}
+
+        .module-B-a {.....}
+
+        .module-B-b {.....}
+</code></pre></p>
+<h2 id="_20"><a name="user-content-_20" href="#_20" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>多态</h2>
+<p><img alt="alt text" src="///D://101PAD/design/modularize/images/6.jpg" title="" /><br />
+多态主要用于同一模块在页面的不同部分或者不同页面之间呈现出不同的样式</p>
+<p>HTML代码</p>
+<p>主页：<br />
+<pre><code class="html">&lt;body class=”index”&gt;
+
+  &lt;ul class=”nav”&gt;
+
+    &lt;li class=”index”&gt;&lt;a href=”#”&gt;主页&lt;/a&gt;&lt;/li&gt;
+
+    &lt;li class=”page1”&gt;&lt;a href=”#”&gt;内页1&lt;/a&gt;&lt;/li&gt;
+
+    &lt;li class=”page2”&gt;&lt;a href=”#”&gt;内页2&lt;/a&gt;&lt;/li&gt;
+
+  &lt;/ul&gt;
+
+&lt;/body&gt;
+</code></pre><br />
+内页1：<br />
+<pre><code class="html">&lt;body class=”page1”&gt;
+
+  &lt;ul class=”nav”&gt;
+
+    &lt;li class=”index”&gt;&lt;a href=”#”&gt;主页&lt;/a&gt;&lt;/li&gt;
+
+    &lt;li class=”page1”&gt;&lt;a href=”#”&gt;内页1&lt;/a&gt;&lt;/li&gt;
+
+    &lt;li class=”page2”&gt;&lt;a href=”#”&gt;内页2&lt;/a&gt;&lt;/li&gt;
+
+  &lt;/ul&gt;
+
+&lt;/body&gt;
+</code></pre><br />
+CSS代码<br />
+<pre><code class="css">//定义常态
+
+.nav{.....}
+
+.nav .index{.....}
+
+.nav .page1{.....}
+
+.nav .page2{.....}
+
+//定义高亮态
+
+.index .nav .index{.....}
+
+.page1 .nav .page1{.....}
+
+.page2 .nav .page2{.....}
+</code></pre><br />
+以上这个就是多态的经典应用之一。</p>
+<h2 id="sass"><a name="user-content-sass" href="#sass" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Sass</h2>
+<p><a href="http://sass.bootcss.com/">http://sass.bootcss.com/</a><br />
+成熟、稳定、强大的 CSS 扩展语言.</p>
+<blockquote>
+<p>编译工具：gulp-sass,grunt-sass,sass-loader</p>
+</blockquote>
+<h1 id="_21"><a name="user-content-_21" href="#_21" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>包管理</h1>
+<ol>
+<li>npm <a href="https://npmjs.org/doc/">https://npmjs.org/doc/</a></li>
+<li>bower</li>
+</ol>
+<h1 id="_22"><a name="user-content-_22" href="#_22" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>工具</h1>
+<h2 id="es6_1"><a name="user-content-es6_1" href="#es6_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>es6编译工具</h2>
+<blockquote>
+<p>babel <a href="https://github.com/babel/babel">https://github.com/babel/babel</a><br />
+   Traceur <a href="https://github.com/google/traceur-compiler">https://github.com/google/traceur-compiler</a></p>
+</blockquote>
+<h2 id="_23"><a name="user-content-_23" href="#_23" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>前端工程与自动化</h2>
+<p>一般gulp+webpack</p>
+<blockquote>
+<p>webpack 当下最热门的一个模块打包器。它将根据模块的依赖关系进行静态分析，然后将这些模块按照指定的规则生成对应的静态资源。<br />
+<img alt="alt text" src="///D://101PAD/design/modularize/images/3.png" title="" /><br />
+ gulp 自动化构建工具 <a href="http://www.gulpjs.com.cn/">http://www.gulpjs.com.cn/</a><br />
+ grunt 自动化构建工具 <a href="http://www.gruntjs.net/">http://www.gruntjs.net/</a></p>
+</blockquote>
+<h3 id="gulp-webpackgrunt"><a name="user-content-gulp-webpackgrunt" href="#gulp-webpackgrunt" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>常用的工具(以gulp 为例，webpack,grunt基本上也都有)</h3>
+<blockquote>
+<p><img alt="alt text" src="///D://101PAD/design/modularize/images/2.jpg" title="" /></p>
+</blockquote>
+<h1 id="mvvm"><a name="user-content-mvvm" href="#mvvm" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>目前较火的前端MVVM框架</h1>
+<ol>
+<li>reactjs <br />
+stars:48000+ </li>
+<li>angular</li>
+<li>vuejs<br />
+stars:26000+ </li>
+</ol>
+<h1 id="threejs"><a name="user-content-threejs" href="#threejs" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>threejs</h1>
+<blockquote>
+<p>官网http://threejs.org/<br />
+ 关于threejs的书籍只有英文原版的：<br />
+《Three.Js Essentials》、《threejs-cookbook》、《Learning Three.js》<br />
+ 源代码注释：<a href="https://github.com/omni360/three.js.sourcecode">https://github.com/omni360/three.js.sourcecode</a><br />
+ unity-to-threejs<br />
+<a href="http://helloenjoy.com/2013/from-unity-to-three-js/">http://helloenjoy.com/2013/from-unity-to-three-js/</a><br />
+<a href="http://helloracer.com/">http://helloracer.com/</a></p>
+</blockquote>    
+                </article>
+            </div>
+        </div>
+    <script src="../template/markdownToc_files/jquery-1.10.2.min.js"></script>
+    <script src="../template/markdownToc_files/jquery.ztree.all-3.5.min.js"></script>
+    <script src="../template/markdownToc_files/jquery.ztree_toc.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+           
+            var leftnav= $('.leftnav'),
+            tree=$('#tree'),
+            readme=$('#readme');
+             tree.ztree_toc({
+                is_auto_number:false,
+                documment_selector:'.markdown-body',
+                is_expand_all: true
+            });
+            leftnav.on('click',function(){
+              tree.toggle(0,function(){
+                if(readme[0].style.width==="70%"){
+                readme.css({'width':"100%","margin-left":"1%"});
+                leftnav.css("left","0");
+               }
+               else{
+                 readme.css({'width':"70%","margin-left":"18%"});
+                leftnav.css("left","16%");
+               }
+               });
+               if(leftnav.hasClass('arrow-left')){
+               leftnav.removeClass('arrow-left').addClass('arrow-right') ;
+           }
+           else{
+            leftnav.removeClass('arrow-right').addClass('arrow-left') ;
+           }
+            });
+        });
+    </script>
+    </body>
+</html>
