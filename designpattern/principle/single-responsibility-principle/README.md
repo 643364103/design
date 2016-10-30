@@ -16,22 +16,26 @@ class Animal{
     constructor(animal) {
         this.animal = animal;
     };
+
     eat(){  
         console.log(this.animal+"是吃草地");  
-    }
+    };
     get animal(){
         return this._animal.toUpperCase();
-    }
+    };
     set animal(animal){
         this._animal=animal;
-    }
+    };
 }
 var cow = new Animal("cow");
 cow.eat();
+console.log(cow.test);
+cow.add(5);
 var sheep = new Animal("sheep");
 sheep.eat();
-console.log(cow.animal);
-console.log(cow._animal);
+cow.add(6);
+console.log(sheep.test);
+
 //思考：
 //1.如果后面加了食肉的动物？杂食动物？
 //2.上面的console分别输出什么？
