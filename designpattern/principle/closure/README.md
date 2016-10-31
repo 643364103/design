@@ -9,9 +9,9 @@ class Animal{
     static hasMetabolism(){
         return true;
     };
-    static test=1;
+
     eat(){  
-        console.log(this.animal+"是吃草地");  
+        console.log(this.animal+'是吃草地');  
     };
     get animal(){
         return this._animal.toUpperCase();
@@ -33,7 +33,7 @@ var Animal=(function(){
             this.animal = animal+privateString;
         };
         eat(){  
-            console.log(this.animal+"是吃草地");  
+            console.log(this.animal+'是吃草地');  
         };
         get animal(){
             return this._animal.toUpperCase();

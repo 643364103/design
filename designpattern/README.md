@@ -4,8 +4,8 @@
 ### 面向对象特征(抽象)
 
 1. [封装](principle/closure)
-1. 继承
-1. 多态
+1. [继承与组合](principle/extends)
+1. [多态](principle/polymorphism)
 
 ## 分类
 1. 创建型：（5）工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。
