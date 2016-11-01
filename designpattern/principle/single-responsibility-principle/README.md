@@ -16,7 +16,6 @@ class Animal{
     constructor(animal) {
         this.animal = animal;
     };
-
     eat(){  
         console.log(this.animal+"是吃草地");  
     };
@@ -25,18 +24,16 @@ class Animal{
     };
     set animal(animal){
         this._animal=animal;
+        //this.animal=animal;
     };
 }
 var cow = new Animal("cow");
 cow.eat();
-console.log(cow.test);
-cow.add(5);
 var sheep = new Animal("sheep");
 sheep.eat();
-cow.add(6);
-console.log(sheep.test);
 
-//思考：
-//1.如果后面加了食肉的动物？杂食动物？
-//2.上面的console分别输出什么？
 ````
+***
+### 思考
+1. 如果后面加了食肉的动物carnivore,herbivore
+1. 上面的console分别输出什么？

@@ -7,70 +7,53 @@
 ### 解决方案
 改为接口依赖,B,C都依赖接口I，通过接口I发生联系。
 ### 代码
-以计算器为例来说明
+以地图为例来说明
 ````js
-//1、从一个加法计算器功能开始。
-class Calculator(a,b){
-    constructor() {
-      this.a= a;
-      this.b=b;
+$.fn.myMap = function(options) {
+    var defaults = {
+        /* defaults */
     };
-    calculate(addition){
-        return addition.calculate(this.a,this.b);
-    }    
-}
-class Addition{
-     constructor() {
+    options = $.extend({}, defaults, options);
+    var mapOptions = {
+        center: new google.maps.LatLng(options.latitude,options.longitude),
+        zoom: 12
+    },
+    var map = new google.maps.Map(this[0], mapOptions);    
+    return this;
+};
 
-     };
-     calculate(a,b){
-        return a+b;
-     }
-}
-new Calculator(2,3).calculate(new Addition());
-//2、增加需求需要引入减法，我们就需要改动Calcutator.按上面的做法，每加一种都需要改动Calcutator,耦合太高了。
-class Subtraction{
-     constructor() {
-
-     };
-     calculate(a,b){
-        return a-b;
-     }
-}
-
-//我们稍做改变，改成接口依赖[JS的接口实现](common/interface)
-//1. 新建一个叫ICalcu 的接口
-var ICalculate = new Interface('ICalculate',['calculate']);
-//2. 修改Calculator,Addition,Subtraction都实现ICalculate
-class Calculator(a,b){
-    constructor() {
-      this.a= a;
-      this.b=b;
-    };
-    calculate(ICalculate){
-        return ICalculate.calculate(this.a,this.b);
-    }    
-}
-class Addition{
-     constructor() {
-        this.implementsInterfaces = ['ICalculate'];       
-     };
-     calculate(a,b){
-        return a+b;
-     }
-}
-class Subtraction{
-     constructor() {
-        this.implementsInterfaces = ['ICalculate'];         
-     };
-     calculate(a,b){
-        return a-b;
-     }
-}
-//判断是否实现
-ICalculate.ensureImplements(['Addition','Subtraction']);
+$("#map_canvas").myMap({
+    latitude: 35.044640193770725,
+    longitude: -89.98193264007568
+});
 ````
-> 针对接口编程，依赖于抽象而不依赖于具体。
+***
+````js
+$.fn.myMap = function(options) {
+    var defaults = {
+        /* defaults */
+    };
+    options = $.extend({}, defaults, options);
+    options.provider.init(this[0],options.latitude,options.longitude)
+    return this;
+};
+var googleProvider=(function(){
+    return {
+        init:function(container,options){
+            var mapOptions = {
+                center: new google.maps.LatLng(options.latitude,options.longitude),
+                zoom: 12
+            },
+            var map = new google.maps.Map(container, mapOptions);    
+       }
+    }
+})();
+$("#map_canvas").trackMap({
+    latitude: 35.044640193770725,
+    longitude: -89.98193264007568,
+    provider: googleProvider
+});
+````
 
 > High level modules should not depend upon low level modules.
 
