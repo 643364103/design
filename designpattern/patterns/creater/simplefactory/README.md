@@ -1,5 +1,12 @@
-Simple Factory
+简单工厂模式（Simple Factory）
 ===
+由一个工厂对象决定创建出哪一种产品类的实例
+
+![alt text](images/1.png '')
+
+### 场景
+创建单一的对象
+***
 ````js
 //alert
 var LoginAlert=(function(){
