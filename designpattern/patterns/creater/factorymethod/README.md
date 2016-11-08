@@ -8,8 +8,7 @@
 学科书本的广告简介
 ````js
 //广告数据
-var data=[{type:'JavaScript',content:'this is JavaScript'},
-          {type:'Php',content:'this is Php'}];
+
 
 //用工厂方法模式（加上了安全保证）
 var Factory=function(type,content){
@@ -41,6 +40,8 @@ Factory.prototype={
     }
 }
 //调用
+var data=[{type:'JavaScript',content:'this is JavaScript'},
+          {type:'Php',content:'this is Php'}];
 for(var i=0,len=data.length;i<len;i++){
     Factory(data[i].type,data[i].content);
 }
