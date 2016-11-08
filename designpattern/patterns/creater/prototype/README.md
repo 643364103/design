@@ -26,3 +26,29 @@ SlideLoopImg.prototype.changeImage=function(){
   //重写
 }
 ````
+````js
+//进价
+//对象的属性复制，这里只做浅复制，深复制，请见jquery.extends
+function prototypeExtend(){
+    var F=function(){},
+    args=arguments,
+    i=0,
+    len=args.length;
+    for (;i<len;i++) {
+       for(var j in args[i]){
+           F.prototype[j]=args[i][j];
+       }    
+    }
+    return new F();
+}
+var fish=prototypeExtend({
+    speed:20,
+    swim:function(){
+        console.log('游泳速度：'+this.speed);
+    },{        
+        jump:function(){
+            console.log('我在跳跃');
+    }
+});
+````
+思考：上面两种实现有什么差别？

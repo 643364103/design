@@ -1,6 +1,7 @@
 简单工厂模式（Simple Factory）
 ===
-由一个工厂对象决定创建出哪一种产品类的实例
+由一个工厂对象决定创建出哪一种产品类的实例.
+专门定义一个类来负责创建其他类的实例，被创建的实例常常具有共同的父类.
 
 ![alt text](images/1.png '')
 
@@ -8,14 +9,16 @@
 创建单一的对象
 ***
 ````js
+
 //alert
 var LoginAlert=(function(){
-    class LoginAlert{  
+    class LoginAlert {  
         constructor(text) {
             this.text = text;
         };
         show(){  
             //do  
+            console.log(this.text);
         };        
     };
     return LoginAlert;
@@ -31,11 +34,12 @@ var LoginConfirm=(function(){
     };
     show(){
       //do
+      console.log(this.text);
     };
   };
   return LoginConfirm;
 })();
-var nameConfirm=new LoginConfirm('你的用户名不存在！');
+var nameConfirm=new LoginConfirm('你的用户名不存在！','Confirm:');
 nameConfirm.show();
 ````
 

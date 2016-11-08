@@ -55,7 +55,7 @@ var BMW= function(price,speed){
     this.price=price;
     this.speed=speed;
 }
-VehicleFactory('BMW','Car');
+VehicleFactory(BMW,'Car');
 BMW.prototype={
     getPrice:function(){
         return this.price;
@@ -68,7 +68,7 @@ var YUTONG= function(price,passenger){
     this.price=price;
     this.passenger=passenger;
 }
-VehicleFactory('YUTONG','Bus');
+VehicleFactory(YUTONG,'Bus');
 YUTONG.prototype={
     getPrice:function(){
         return this.price;
