@@ -4,9 +4,36 @@
 
 
 ![alt text](images/1.gif '')
-### 跨域的问题
-1. img.src
-2.
+### 案例分析
+假如ABC要送酸奶小妹玫瑰花，却不知道她的联系方式或者不好意思，想委托C去送这些玫瑰.
+
+````js
+// 先声明美女对象
+var girl = function (name) {
+    this.name = name;
+};
+
+// 这是ABC
+var abc = function (girl) {
+    this.girl = girl;
+    this.sendGift = function (gift) {
+        console.log("Hi " + girl.name + ", dudu送你一个礼物：" + gift);
+    }
+};
+
+// 大叔是代理
+var proxyTom = function (girl) {
+    this.girl = girl;
+    this.sendGift = function (gift) {
+        (new abc(girl)).sendGift(gift); // 替dudu送花咯
+    }
+};
+````
+调用方式
+````js
+var proxy = new proxyTom(new girl("酸奶小妹"));
+proxy.sendGift("999朵玫瑰");
+````
 ***
 ### 代理模式与外观模式的区别
 代理的客户对象无法直接访问目标对象，代理对象提供对单独目标对象的访问控制，而外观模式的客户对象可以直接访问子系统中的各个对象，但通常由外观对象提供对子系统个元件功能的简化的共同层次的调用接口。

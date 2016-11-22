@@ -23,23 +23,3 @@ for(vari=1;i<=50;i++){
 //要得到一张照片，每次都需要传入sex和underwear参数，如上所述，现在一共50种男内衣和50种女内衣，所以一共产生100个对象
 ````
 ***
-````js
-//只需要区别男女模特，那我们先把underwear参数从构造函数中移除
-var Model = function(sex){  
-   this.sex = sex;  
-}  
-Model.prototype.takePhoto = function(){  
-  console.log(‘sex=’+this.sex+’underware=’+this.underwear);  
-} 
- var maleModel = new Model(‘male’),femaleModel= new Model(‘male’);  
- //给男模特拍照  
- for(var i=1;i<=50;i++){  
-   maleModel.underware = ‘underware’+i;  
-   maleModel.takePhoto();  
- }  
- //同理女模特  
- for(var i=1;i<=50;i++){  
-   femaleModel.underware = ‘underware’+i;  
-   femaleModel.takePhoto();  
- }  
-````
