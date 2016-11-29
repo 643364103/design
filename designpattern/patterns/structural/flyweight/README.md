@@ -83,3 +83,8 @@ for (var i = 0; i < 1000000; i++) {
 }
 console.log(phones);
 ````
+
+````js
+<img src="http://wwww.baidu.com/api"/>
+<iframe src="a"
+````
