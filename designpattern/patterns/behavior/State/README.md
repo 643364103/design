@@ -43,3 +43,72 @@ var ResultState=function(){
   }
 }
 ````
+***
+超级玛丽
+````js
+var MarryState=function(){
+// 内部状态私有变量
+  var _currentState={},
+      states={
+        jump:function(){
+          console.log('jump');
+        },
+        move:function(){
+          console.log('move');
+        },
+        shoot:function(){
+          console.log('shoot');
+        },
+        jump:function(){
+          console.log('jump');
+        }
+      };
+      // 动作控制类
+  var Action ={
+    changeState :function(){
+      // 组合动作通过传递多个参数实现
+      var arg=arguments;
+      // 重置内部状态
+      _currentState={};
+      // 如果有动作则添加动作
+      if(arg.length)
+      {
+        // 遍历动作
+        for(var i=0,len=arg.length;i<len;i++){
+          // 向内部状态中添加动作
+          _currentState[arg[i]]=true;
+        }
+      }
+      return this;
+    },
+    // 执行动作
+    goes:function(){
+      console.log('go action');
+      // 遍历内部状态保存的动作
+      for(var i in _currentState){
+        //如果该动作存在则执行
+        states[i]&&states[i]();
+      }
+      return this;
+    }
+  }
+  // 返回接口方法，change、goes
+  return {
+    change:Action.changeState,
+    goes:Action.goes
+  }
+}
+````
+***
+````js
+var marry=new MarryState();
+marry.change('jump','shoot')
+     .goes()
+     .goes()
+     .change('shoot')
+     .goes();
+````
+
+###与strategy的区别
+1. 一个是实现把对象的内在状态的变化封装起来，用外部行为来表现出来；
+1. 一个是封装一系列平行且复杂多变的实现方式，
