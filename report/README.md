@@ -27,10 +27,10 @@
 ### 程序
 1. HTTP 资源的实时进度加载，采用XHR2.0来实现。对于不支持的浏览器，用假进度条来代替
 1. 动画的方面使用CSS3的动画,使用（tranform,opacity)尽量保证不触发Layout,paint，并开启硬件加速（tranform:translateZ(0)）
-````js
-  PS:css最终表现大概分成主要的四步: recalculate style(查找计算样式)，layout(排布)，paint(绘制)，composite layers(组合层级)
+
+  * PS:css最终表现大概分成主要的四步: recalculate style(查找计算样式)，layout(排布)，paint(绘制)，composite layers(组合层级)
   详见：https://csstriggers.com
-````
+
 ### 主要遇到的问题与解决
 #### loading 页高清资源在3G网络下载比较久、会白屏比较久。
 解决：与设计沟通：出3套资源，移动平台都至多载后面两种资源，保证白屏时间短少。
