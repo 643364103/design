@@ -37,9 +37,15 @@ var InputStrategy=function(){
       return /^[0-9]+(\.[0-9]+)?$/.test(value);
     }
   }
-  return function(type,value){
-    value = value.replace(/^\s+|\s+$/g,'');
-    return stragtegy[type] && stragtegy[type] (value)
+  return {
+    addStrategy:function(){
+     ///  
+    },
+    check:function(){
+     value = value.replace(/^\s+|\s+$/g,'');
+     return stragtegy[type] && stragtegy[type] (value) 
+    }
   }
+  
 }();
 ````
