@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-20T08:20:33.905Z" agent="5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="-hyYnz4RplfyTb0zmkFu" version="14.6.3" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-04-20T08:41:11.051Z" agent="5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="lkPqxi0QHnp2VykSF_YN" version="14.6.3" type="github" pages="2">
   <diagram name="领域模型" id="9f46799a-70d6-7492-0946-bef42562c5a5">
     <mxGraphModel dx="1426" dy="769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
       <root>
@@ -20,19 +20,6 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="GsSLp2DtThcRFbA4R3xw-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;endFill=0;" parent="1" source="GsSLp2DtThcRFbA4R3xw-1" target="GsSLp2DtThcRFbA4R3xw-13" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="480" y="255" />
-              <mxPoint x="480" y="100" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="GsSLp2DtThcRFbA4R3xw-17" value="1:*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GsSLp2DtThcRFbA4R3xw-16" vertex="1" connectable="0">
-          <mxGeometry x="0.4033" relative="1" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="GsSLp2DtThcRFbA4R3xw-1" value="User" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="550" y="230" width="100" height="50" as="geometry" />
         </mxCell>
@@ -45,6 +32,17 @@
         <mxCell id="GsSLp2DtThcRFbA4R3xw-3" value="Page" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="770" y="350" width="100" height="50" as="geometry" />
         </mxCell>
+        <mxCell id="rreA4PhkjIYxYnH2w9kf-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="GsSLp2DtThcRFbA4R3xw-4" target="GsSLp2DtThcRFbA4R3xw-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="190" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="400" y="210" />
+              <mxPoint x="320" y="210" />
+              <mxPoint x="320" y="300" />
+              <mxPoint x="400" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
         <mxCell id="GsSLp2DtThcRFbA4R3xw-4" value="Template" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="350" y="230" width="100" height="50" as="geometry" />
         </mxCell>
@@ -53,18 +51,6 @@
         </mxCell>
         <mxCell id="GsSLp2DtThcRFbA4R3xw-5" value="TemplateGenre" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="350" y="350" width="100" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="GsSLp2DtThcRFbA4R3xw-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=0;" parent="1" source="GsSLp2DtThcRFbA4R3xw-13" target="GsSLp2DtThcRFbA4R3xw-4" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="GsSLp2DtThcRFbA4R3xw-13" value="Block" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" parent="1" vertex="1">
-          <mxGeometry x="350" y="80" width="100" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="GsSLp2DtThcRFbA4R3xw-19" value="1:*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=openThin;endFill=0;" parent="1" source="GsSLp2DtThcRFbA4R3xw-18" target="GsSLp2DtThcRFbA4R3xw-13" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="GsSLp2DtThcRFbA4R3xw-18" value="BlockGenre" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" parent="1" vertex="1">
-          <mxGeometry x="560" y="75" width="100" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
