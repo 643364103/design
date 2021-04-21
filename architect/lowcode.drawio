@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-21T06:02:55.295Z" agent="5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="TeRVoa2CVnc3syyG7G86" version="14.6.3" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-04-21T06:04:37.660Z" agent="5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="rdB42tysfwl8MLCBLaD5" version="14.6.3" type="github" pages="2">
   <diagram name="领域模型" id="9f46799a-70d6-7492-0946-bef42562c5a5">
     <mxGraphModel dx="1374" dy="769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
       <root>
@@ -48,9 +48,6 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="krWCsgs_Ez_Vjo_tUOk6-4" value="1:1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="GsSLp2DtThcRFbA4R3xw-4" target="krWCsgs_Ez_Vjo_tUOk6-1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
         <mxCell id="GsSLp2DtThcRFbA4R3xw-4" value="Template" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="350" y="230" width="100" height="50" as="geometry" />
         </mxCell>
@@ -59,6 +56,9 @@
         </mxCell>
         <mxCell id="GsSLp2DtThcRFbA4R3xw-5" value="TemplateGenre" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="350" y="350" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="krWCsgs_Ez_Vjo_tUOk6-7" value="1:*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="krWCsgs_Ez_Vjo_tUOk6-1" target="GsSLp2DtThcRFbA4R3xw-4">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="krWCsgs_Ez_Vjo_tUOk6-1" value="Tag" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" vertex="1" parent="1">
           <mxGeometry x="350" y="110" width="100" height="50" as="geometry" />
